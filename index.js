@@ -3,6 +3,9 @@
 //  commonjs in package.json for Node.js compatibility (now we use require) if we not define then bydefault it is commonjs
 // start script in package.json: "start": "nodemon index.js", now we can run the server using `npm start`
 
+
+// to use .env variables
+require("dotenv").config();
 // ...................................................................................................
 // /////////////////////////////////////////////////////// MODULES in Node.js
 
@@ -65,7 +68,7 @@ app.use(express.json()); // middleware to parse JSON data from request body
 // ....................................................................................................
 /////////////////////////////////////////////////////////// Middleware in Express.js
 
-const myToken = "12345";
+const myToken = process.env.MYToken;
 const myPassword = "123";
 
 // next is a function which is used to call the next middleware or route handler
@@ -73,7 +76,7 @@ const myPassword = "123";
 // const checkToken = (req, res, next) => {
 //     // console.log("Middleware 1 executed");
 //     // let token = req.headers.token; // get token from request headers
-//     // if (token == "12345") {
+//     // if (token == myToken) {
 //     //     next(); // call next middleware or route handler
 //     // } else {
 //     //     res.status(401).send({ // 401 is the status code for unauthorized
@@ -181,4 +184,4 @@ app.post("/login", (req, res) => { // http://localhost:8000/login
     res.send({ status: 1, message: "Login api" })
 })
 
-app.listen(8000)
+app.listen(process.env.PORT || 5000)
